@@ -1,0 +1,16 @@
+import React from 'react';
+import './Home.css';
+
+function Home() {
+  return (
+    <div className="home-container">
+      <div className="home-content">
+        <h2>Welcome to Task Manager</h2>
+        <p>Your personal task management solution</p>
+        <p>Click on Tasks menu to view and manage your tasks</p>
+      </div>
+    </div>
+  );
+}
+
+export default Home;
