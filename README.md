@@ -33,3 +33,55 @@ git clone https://github.com/MarceloFonseca/tasks-api/
 cd tasks-api
 npm install
 PORT=3008 NEW_TASK_PERIOD=60000 npm start
+
+```
+
+A API estará disponível em: `http://localhost:3008/api/tasks`
+
+### 2. Clone e execute o app
+
+```bash
+git clone https://github.com/sofiadcfigueiredo/task-manager-app.git
+cd task-manager-app
+npm install
+npm start
+```
+
+O app estará disponível em: `http://localhost:3000`
+
+---
+
+## 🗂️ Estrutura do projeto
+
+```
+task-manager-app/
+├── src/
+│   ├── components/
+│   │   ├── Home.js
+│   │   ├── Home.css
+│   │   ├── Tasks.js
+│   │   ├── Tasks.css
+│   │   ├── TaskItem.js
+│   │   └── TaskItem.css
+│   ├── services/
+│   │   └── TaskService.js
+│   ├── App.js
+│   └── App.css
+└── package.json
+```
+
+---
+
+## 🛠️ Tecnologias
+
+- React 18
+- React Router DOM
+- Fetch API
+- CSS3
+
+---
+
+## 👩‍💻 Autora
+
+**Sofia Figueiredo**  
+[GitHub](https://github.com/sofiadcfigueiredo)
