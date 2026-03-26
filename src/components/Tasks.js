@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import TaskService from '../services/TaskService';
 import TaskItem from './TaskItem';
 import './Tasks.css';
 
@@ -10,9 +11,7 @@ function Tasks() {
   const loadTasks = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:3008/api/tasks');
-      if (!response.ok) throw new Error('Failed to fetch');
-      const data = await response.json();
+      const data = await TaskService.getTasks();
       setTasks(data);
       setError(null);
     } catch (err) {
