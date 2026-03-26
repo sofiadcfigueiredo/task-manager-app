@@ -6,8 +6,12 @@ function Home() {
     <div className="home-container">
       <div className="home-content">
         <h2>Welcome to Task Manager</h2>
-        <p>Your personal task management solution</p>
-        <p>Click on Tasks menu to view and manage your tasks</p>
+        <p className="text-secondary fs-5">
+          Your personal task management solution
+        </p>
+        <p className="text-muted">
+          Click on Tasks menu to view and manage your tasks
+        </p>
       </div>
     </div>
   );
