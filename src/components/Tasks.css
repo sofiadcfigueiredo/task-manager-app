@@ -52,3 +52,52 @@
   border: 1px solid;
   border-color: #808080 #ffffff #ffffff #808080;
 }
+
+/* Windows 95 style form */
+.win95-form {
+  background: #c0c0c0;
+  border: 1px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  padding: 12px;
+  margin-bottom: 16px;
+}
+
+.win95-form-title {
+  font-family: monospace;
+  font-size: 14px;
+  font-weight: normal;
+  margin-bottom: 8px;
+  color: #000000;
+}
+
+.win95-input {
+  background: white;
+  border: 1px solid;
+  border-color: #808080 #ffffff #ffffff #808080;
+  padding: 4px 8px;
+  font-family: monospace;
+  font-size: 12px;
+}
+
+.win95-input:focus {
+  outline: none;
+  border-color: #000000;
+}
+
+.win95-button {
+  background: #c0c0c0;
+  border: 1px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  padding: 4px 12px;
+  font-family: monospace;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.win95-button:hover {
+  background: #d4d0c8;
+}
+
+.win95-button:active {
+  border-color: #808080 #ffffff #ffffff #808080;
+}

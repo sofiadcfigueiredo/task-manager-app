@@ -28,6 +28,31 @@
   flex: 1;
 }
 
+.task-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.edit-btn, .delete-btn {
+  background: #c0c0c0;
+  border: 1px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  padding: 4px 10px;
+  font-family: monospace;
+  font-size: 12px;
+  cursor: pointer;
+  transition: none;
+}
+
+.edit-btn:hover, .delete-btn:hover {
+  background: #d4d0c8;
+}
+
+.edit-btn:active, .delete-btn:active {
+  border-color: #808080 #ffffff #ffffff #808080;
+}
+
 .task-status {
   min-width: 95px;
   width: 95px;
@@ -61,4 +86,89 @@
 .task-meta {
   font-size: 10px;
   color: #404040;
+}
+
+.status-btn {
+  background: #c0c0c0;
+  border: 1px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  padding: 4px 10px;
+  font-family: monospace;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.status-btn:hover {
+  background: #d4d0c8;
+}
+
+.status-btn:active {
+  border-color: #808080 #ffffff #ffffff #808080;
+}
+
+.btn-completed {
+  background: #28a745;
+  color: white;
+}
+
+.btn-pending {
+  background: #ffc107;
+  color: black;
+}
+
+.status-btn {
+  background: #ffc107;
+  color: #000000;
+  border: 1px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  padding: 4px 10px;
+  font-family: monospace;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.status-btn:hover {
+  background: #e0a800;
+}
+
+.status-btn:active {
+  border-color: #808080 #ffffff #ffffff #808080;
+}
+
+.status-btn {
+  background: #0078d7;
+  color: white;
+  border: 1px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  padding: 4px 10px;
+  font-family: monospace;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.status-btn:hover {
+  background: #005a9e;
+}
+
+.status-btn:active {
+  border-color: #808080 #ffffff #ffffff #808080;
+}
+
+.status-btn {
+  background: #c0c0c0;
+  color: #000000;
+  border: 1px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  padding: 4px 10px;
+  font-family: monospace;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.status-btn:hover {
+  background: #d4d0c8;
+}
+
+.status-btn:active {
+  border-color: #808080 #ffffff #ffffff #808080;
 }

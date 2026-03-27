@@ -84,6 +84,12 @@ function Tasks() {
     }
   };
 
+  const toggleComplete = (id) => {
+    setTasks(tasks.map(task => 
+      task.id === id ? { ...task, completed: !task.completed } : task
+    ));
+  };
+
   const openEditModal = (task) => {
     setEditingTask(task);
     setNewTaskTitle(task.title || task.text);
@@ -147,48 +153,20 @@ function Tasks() {
         </div>
       </div>
 
-      <div className="mb-4 p-3" style={{ background: '#c0c0c0', border: '1px solid', borderColor: '#ffffff #808080 #808080 #ffffff' }}>
-        <h5 className="mb-2">Add New Task</h5>
-        <div className="d-flex gap-2 flex-wrap">
-          <input
-            type="text"
-            className="form-control"
-            style={{ width: '200px', fontFamily: 'monospace' }}
-            placeholder="Task title..."
-            value={newTaskTitle}
-            onChange={(e) => setNewTaskTitle(e.target.value)}
-          />
-          <input
-            type="text"
-            className="form-control"
-            style={{ width: '300px', fontFamily: 'monospace' }}
-            placeholder="Description (optional)..."
-            value={newTaskDesc}
-            onChange={(e) => setNewTaskDesc(e.target.value)}
-          />
-          <button
-            className="btn btn-primary"
-            onClick={addTask}
-            style={{ fontFamily: 'monospace' }}
-          >
-            + Add Task
-          </button>
-        </div>
-      </div>
-
       <div className="mb-4">
         <div className="input-group">
           <span className="input-group-text bg-white">🔍</span>
           <input
             type="text"
-            className="form-control"
+            className="win95-input"
+            style={{ flex: 1, fontFamily: 'monospace' }}
             placeholder="Search tasks by title..."
             value={searchTerm}
             onChange={handleSearch}
           />
           {searchTerm && (
             <button
-              className="btn btn-outline-secondary"
+              className="win95-button"
               onClick={() => setSearchTerm('')}
             >
               ✕ Clear
@@ -200,6 +178,34 @@ function Tasks() {
             Showing {filteredTasks.length} result(s) for "{searchTerm}"
           </div>
         )}
+      </div>
+
+      <div className="win95-form">
+        <h5 className="win95-form-title">Add New Task</h5>
+        <div className="d-flex gap-2 flex-wrap">
+          <input
+            type="text"
+            className="win95-input"
+            style={{ width: '200px', fontFamily: 'monospace' }}
+            placeholder="Task title..."
+            value={newTaskTitle}
+            onChange={(e) => setNewTaskTitle(e.target.value)}
+          />
+          <input
+            type="text"
+            className="win95-input"
+            style={{ width: '300px', fontFamily: 'monospace' }}
+            placeholder="Description (optional)..."
+            value={newTaskDesc}
+            onChange={(e) => setNewTaskDesc(e.target.value)}
+          />
+          <button
+            className="win95-button"
+            onClick={addTask}
+          >
+            + Add Task
+          </button>
+        </div>
       </div>
 
       <div className="tasks-list">
@@ -215,6 +221,7 @@ function Tasks() {
               task={task} 
               onEdit={openEditModal}
               onDelete={deleteTask}
+              onToggleComplete={toggleComplete}
             />
           ))
         )}

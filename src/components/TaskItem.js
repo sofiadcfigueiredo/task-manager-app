@@ -1,7 +1,7 @@
 import React from 'react';
 import './TaskItem.css';
 
-function TaskItem({ task, onEdit, onDelete }) {
+function TaskItem({ task, onEdit, onDelete, onToggleComplete }) {
   const getStatusClass = (completed) => {
     return completed ? 'status-completed' : 'status-pending';
   };
@@ -30,6 +30,14 @@ function TaskItem({ task, onEdit, onDelete }) {
           <span className={`task-status ${getStatusClass(task.completed)}`}>
             {getStatusText(task.completed)}
           </span>
+          {!task.completed && (
+            <button
+              className="status-btn"
+              onClick={() => onToggleComplete(task.id)}
+            >
+              ✓ Mark Complete
+            </button>
+          )}
         </div>
       </div>
       {task.description && (
