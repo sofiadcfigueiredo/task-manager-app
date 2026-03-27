@@ -27,9 +27,6 @@ function TaskItem({ task, onEdit, onDelete, onToggleComplete }) {
           >
             🗑️ Delete
           </button>
-          <span className={`task-status ${getStatusClass(task.completed)}`}>
-            {getStatusText(task.completed)}
-          </span>
           {!task.completed && (
             <button
               className="status-btn"
@@ -38,6 +35,9 @@ function TaskItem({ task, onEdit, onDelete, onToggleComplete }) {
               ✓ Mark Complete
             </button>
           )}
+          <span className={`task-status ${getStatusClass(task.completed)}`}>
+            {getStatusText(task.completed)}
+          </span>
         </div>
       </div>
       {task.description && (

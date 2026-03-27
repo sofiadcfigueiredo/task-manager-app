@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import TaskService from '../services/TaskService';
 import TaskItem from './TaskItem';
 import './Tasks.css';
 
@@ -22,9 +23,7 @@ function Tasks() {
       if (savedTasks && JSON.parse(savedTasks).length > 0) {
         setTasks(JSON.parse(savedTasks));
       } else {
-        const response = await fetch('http://localhost:3008/api/tasks');
-        if (!response.ok) throw new Error('Failed to fetch');
-        const data = await response.json();
+        const data = await TaskService.getTasks();
         setTasks(data);
         localStorage.setItem('tasks', JSON.stringify(data));
       }
