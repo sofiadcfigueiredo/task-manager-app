@@ -22,23 +22,6 @@ A task management application built with **React** featuring a nostalgic **Windo
 
 ---
 
-### `feature/crud` - Complete Version
-- ✅ Everything from `main`
-- ✅ **Create** - Add new tasks with title and description
-- ✅ **Read** - List tasks with pagination and search
-- ✅ **Update** - Edit task title and description via modal
-- ✅ **Delete** - Remove tasks with confirmation
-- ✅ **Mark Complete** - Toggle task completion status
-- ✅ **localStorage persistence** - Tasks persist after page refresh
-
-To switch branches:
-```bash
-git checkout main #Stable version without CRUD
-git checkout feature/crud #Complete version with CRUD
-```
-
----
-
 ## 🚀 How to run the project
 
 ### Prerequisites
@@ -146,6 +129,19 @@ The application features a complete **Windows 95 aesthetic**:
 **Font:** Monospace (Courier New)
 **Window Controls:** Minimize, Maximize, Close buttons
 **Status Bar:**Classic "Ready" indicator
+
+---
+
+## 📸 Screenshots
+
+### Home Page
+![Home Page](src/images/home.png)
+
+### Tasks Page (Main branch - without CRUD)
+![Tasks Page Main](src/images/tasks-main.png)
+
+### Tasks Page (CRUD branch - with Edit/Delete)
+![Tasks Page CRUD](src/images/tasks-crud.png)
 
 ---
 
