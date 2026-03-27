@@ -1,7 +1,7 @@
 import React from 'react';
 import './TaskItem.css';
 
-function TaskItem({ task }) {
+function TaskItem({ task, onEdit, onDelete }) {
   const getStatusClass = (completed) => {
     return completed ? 'status-completed' : 'status-pending';
   };
@@ -14,9 +14,23 @@ function TaskItem({ task }) {
     <div className="custom-task-item">
       <div className="task-header">
         <h5 className="task-title">{task.title || task.text}</h5>
-        <span className={`task-status ${getStatusClass(task.completed)}`}>
-          {getStatusText(task.completed)}
-        </span>
+        <div className="task-actions">
+          <button
+            className="edit-btn"
+            onClick={() => onEdit(task)}
+          >
+            ✏️ Edit
+          </button>
+          <button
+            className="delete-btn"
+            onClick={() => onDelete(task.id)}
+          >
+            🗑️ Delete
+          </button>
+          <span className={`task-status ${getStatusClass(task.completed)}`}>
+            {getStatusText(task.completed)}
+          </span>
+        </div>
       </div>
       {task.description && (
         <p className="task-description">{task.description}</p>

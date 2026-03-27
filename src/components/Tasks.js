@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import TaskService from '../services/TaskService';
 import TaskItem from './TaskItem';
 import './Tasks.css';
 
@@ -7,15 +6,28 @@ function Tasks() {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [paginaAtual, setPaginaAtual] = useState(1);
-  const [termoBusca, setTermoBusca] = useState('');
-  const tasksPorPagina = 20;
+  const [currentPage, setCurrentPage] = useState(1);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [showModal, setShowModal] = useState(false);
+  const [editingTask, setEditingTask] = useState(null);
+  const [newTaskTitle, setNewTaskTitle] = useState('');
+  const [newTaskDesc, setNewTaskDesc] = useState('');
+  const tasksPerPage = 20;
 
   const loadTasks = async () => {
     try {
       setLoading(true);
-      const data = await TaskService.getTasks();
-      setTasks(data);
+      const savedTasks = localStorage.getItem('tasks');
+      
+      if (savedTasks && JSON.parse(savedTasks).length > 0) {
+        setTasks(JSON.parse(savedTasks));
+      } else {
+        const response = await fetch('http://localhost:3008/api/tasks');
+        if (!response.ok) throw new Error('Failed to fetch');
+        const data = await response.json();
+        setTasks(data);
+        localStorage.setItem('tasks', JSON.stringify(data));
+      }
       setError(null);
     } catch (err) {
       setError('Failed to load tasks. Please make sure the API is running.');
@@ -28,31 +40,82 @@ function Tasks() {
     loadTasks();
   }, []);
 
-  const tasksFiltradas = tasks.filter(task => {
-    const titulo = (task.title || task.text || '').toLowerCase();
-    return titulo.includes(termoBusca.toLowerCase());
-  });
+  useEffect(() => {
+    if (tasks.length > 0) {
+      localStorage.setItem('tasks', JSON.stringify(tasks));
+    }
+  }, [tasks]);
 
-  const totalPaginas = Math.ceil(tasksFiltradas.length / tasksPorPagina);
-  const inicio = (paginaAtual - 1) * tasksPorPagina;
-  const fim = inicio + tasksPorPagina;
-  const tasksAtuais = tasksFiltradas.slice(inicio, fim);
+  const addTask = () => {
+    if (!newTaskTitle.trim()) return;
+    
+    const newTask = {
+      id: Date.now(),
+      title: newTaskTitle,
+      text: newTaskTitle,
+      description: newTaskDesc,
+      completed: false
+    };
+    
+    setTasks([newTask, ...tasks]);
+    setNewTaskTitle('');
+    setNewTaskDesc('');
+  };
 
-  const proximaPagina = () => {
-    if (paginaAtual < totalPaginas) {
-      setPaginaAtual(paginaAtual + 1);
+  const updateTask = () => {
+    if (!editingTask) return;
+    
+    const updatedTasks = tasks.map(task => 
+      task.id === editingTask.id 
+        ? { ...task, title: newTaskTitle, text: newTaskTitle, description: newTaskDesc }
+        : task
+    );
+    
+    setTasks(updatedTasks);
+    setShowModal(false);
+    setEditingTask(null);
+    setNewTaskTitle('');
+    setNewTaskDesc('');
+  };
+
+  const deleteTask = (id) => {
+    if (window.confirm('Are you sure you want to delete this task?')) {
+      setTasks(tasks.filter(task => task.id !== id));
     }
   };
 
-  const paginaAnterior = () => {
-    if (paginaAtual > 1) {
-      setPaginaAtual(paginaAtual - 1);
+  const openEditModal = (task) => {
+    setEditingTask(task);
+    setNewTaskTitle(task.title || task.text);
+    setNewTaskDesc(task.description || '');
+    setShowModal(true);
+  };
+
+  const filteredTasks = tasks.filter(task => {
+    const title = (task.title || task.text || '').toLowerCase();
+    return title.includes(searchTerm.toLowerCase());
+  });
+
+  const totalPages = Math.ceil(filteredTasks.length / tasksPerPage);
+  const start = (currentPage - 1) * tasksPerPage;
+  const end = start + tasksPerPage;
+  const currentTasks = filteredTasks.slice(start, end);
+
+  const nextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const prevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
     }
   };
 
   const handleSearch = (event) => {
-    setTermoBusca(event.target.value);
-    setPaginaAtual(1);
+    setSearchTerm(event.target.value);
+    setCurrentPage(1);
   };
 
   if (loading) return (
@@ -80,7 +143,36 @@ function Tasks() {
       <div className="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
         <h2 className="mb-0">My Tasks</h2>
         <div className="alert alert-secondary mb-0">
-          Total: {tasksFiltradas.length} tasks
+          Total: {filteredTasks.length} tasks
+        </div>
+      </div>
+
+      <div className="mb-4 p-3" style={{ background: '#c0c0c0', border: '1px solid', borderColor: '#ffffff #808080 #808080 #ffffff' }}>
+        <h5 className="mb-2">Add New Task</h5>
+        <div className="d-flex gap-2 flex-wrap">
+          <input
+            type="text"
+            className="form-control"
+            style={{ width: '200px', fontFamily: 'monospace' }}
+            placeholder="Task title..."
+            value={newTaskTitle}
+            onChange={(e) => setNewTaskTitle(e.target.value)}
+          />
+          <input
+            type="text"
+            className="form-control"
+            style={{ width: '300px', fontFamily: 'monospace' }}
+            placeholder="Description (optional)..."
+            value={newTaskDesc}
+            onChange={(e) => setNewTaskDesc(e.target.value)}
+          />
+          <button
+            className="btn btn-primary"
+            onClick={addTask}
+            style={{ fontFamily: 'monospace' }}
+          >
+            + Add Task
+          </button>
         </div>
       </div>
 
@@ -91,57 +183,105 @@ function Tasks() {
             type="text"
             className="form-control"
             placeholder="Search tasks by title..."
-            value={termoBusca}
+            value={searchTerm}
             onChange={handleSearch}
           />
-          {termoBusca && (
+          {searchTerm && (
             <button
               className="btn btn-outline-secondary"
-              onClick={() => setTermoBusca('')}
+              onClick={() => setSearchTerm('')}
             >
-              ✕ Limpar
+              ✕ Clear
             </button>
           )}
         </div>
-        {termoBusca && (
+        {searchTerm && (
           <div className="text-muted mt-2 small">
-            Showing {tasksFiltradas.length} result(s) for "{termoBusca}"
+            Showing {filteredTasks.length} result(s) for "{searchTerm}"
           </div>
         )}
       </div>
 
       <div className="tasks-list">
-        {tasksAtuais.length === 0 ? (
+        {currentTasks.length === 0 ? (
           <div className="text-center py-5 text-muted">
-            <p>{termoBusca ? 'No tasks found.' : 'No tasks available'}</p>
-            {!termoBusca && <small>New tasks will appear every minute</small>}
+            <p>{searchTerm ? 'No tasks found.' : 'No tasks available'}</p>
+            {!searchTerm && <small>Add a new task using the form above!</small>}
           </div>
         ) : (
-          tasksAtuais.map(task => <TaskItem key={task.id} task={task} />)
+          currentTasks.map(task => (
+            <TaskItem 
+              key={task.id} 
+              task={task} 
+              onEdit={openEditModal}
+              onDelete={deleteTask}
+            />
+          ))
         )}
       </div>
 
-      {totalPaginas > 1 && (
+      {totalPages > 1 && (
         <div className="d-flex justify-content-center align-items-center gap-3 mt-4">
           <button
             className="pagination-btn"
-            onClick={paginaAnterior}
-            disabled={paginaAtual === 1}
+            onClick={prevPage}
+            disabled={currentPage === 1}
           >
             ← Previous
           </button>
           
           <span className="pagination-info">
-            Page {paginaAtual} of {totalPaginas}
+            Page {currentPage} of {totalPages}
           </span>
           
           <button
             className="pagination-btn"
-            onClick={proximaPagina}
-            disabled={paginaAtual === totalPaginas}
+            onClick={nextPage}
+            disabled={currentPage === totalPages}
           >
             Next →
           </button>
+        </div>
+      )}
+
+      {showModal && (
+        <div className="modal show d-block" tabIndex="-1" style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}>
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">✏️ Edit Task</h5>
+                <button type="button" className="btn-close" onClick={() => setShowModal(false)}></button>
+              </div>
+              <div className="modal-body">
+                <div className="mb-3">
+                  <label className="form-label">Title</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={newTaskTitle}
+                    onChange={(e) => setNewTaskTitle(e.target.value)}
+                  />
+                </div>
+                <div className="mb-3">
+                  <label className="form-label">Description</label>
+                  <textarea
+                    className="form-control"
+                    rows="3"
+                    value={newTaskDesc}
+                    onChange={(e) => setNewTaskDesc(e.target.value)}
+                  />
+                </div>
+              </div>
+              <div className="modal-footer">
+                <button className="btn btn-secondary" onClick={() => setShowModal(false)}>
+                  Cancel
+                </button>
+                <button className="btn btn-primary" onClick={updateTask}>
+                  Save Changes
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       )}
     </div>
