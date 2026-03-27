@@ -22,6 +22,23 @@ A task management application built with **React** featuring a nostalgic **Windo
 
 ---
 
+### `feature/crud` - Complete Version
+- ✅ Everything from `main`
+- ✅ **Create** - Add new tasks with title and description
+- ✅ **Read** - List tasks with pagination and search
+- ✅ **Update** - Edit task title and description via modal
+- ✅ **Delete** - Remove tasks with confirmation
+- ✅ **Mark Complete** - Toggle task completion status
+- ✅ **localStorage persistence** - Tasks persist after page refresh
+
+To switch branches:
+```bash
+git checkout main #Stable version without CRUD
+git checkout feature/crud #Complete version with CRUD
+```
+
+---
+
 ## 🚀 How to run the project
 
 ### Prerequisites
