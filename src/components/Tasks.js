@@ -9,7 +9,7 @@ function Tasks() {
   const [error, setError] = useState(null);
   const [paginaAtual, setPaginaAtual] = useState(1);
   const [termoBusca, setTermoBusca] = useState('');
-  const tarefasPorPagina = 20;
+  const tasksPorPagina = 20;
 
   const loadTasks = async () => {
     try {
@@ -28,15 +28,15 @@ function Tasks() {
     loadTasks();
   }, []);
 
-  const tarefasFiltradas = tasks.filter(task => {
+  const tasksFiltradas = tasks.filter(task => {
     const titulo = (task.title || task.text || '').toLowerCase();
     return titulo.includes(termoBusca.toLowerCase());
   });
 
-  const totalPaginas = Math.ceil(tarefasFiltradas.length / tarefasPorPagina);
-  const inicio = (paginaAtual - 1) * tarefasPorPagina;
-  const fim = inicio + tarefasPorPagina;
-  const tarefasAtuais = tarefasFiltradas.slice(inicio, fim);
+  const totalPaginas = Math.ceil(tasksFiltradas.length / tasksPorPagina);
+  const inicio = (paginaAtual - 1) * tasksPorPagina;
+  const fim = inicio + tasksPorPagina;
+  const tasksAtuais = tasksFiltradas.slice(inicio, fim);
 
   const proximaPagina = () => {
     if (paginaAtual < totalPaginas) {
@@ -61,7 +61,7 @@ function Tasks() {
         <div className="spinner-border text-primary mb-3" role="status">
           <span className="visually-hidden">Loading...</span>
         </div>
-        <p className="text-muted">Loading tasks...</p>
+        <p className="pagination-info">Loading tasks...</p>
       </div>
     </div>
   );
@@ -80,7 +80,7 @@ function Tasks() {
       <div className="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
         <h2 className="mb-0">My Tasks</h2>
         <div className="alert alert-secondary mb-0">
-          Total: {tarefasFiltradas.length} tarefas
+          Total: {tasksFiltradas.length} tasks
         </div>
       </div>
 
@@ -90,7 +90,7 @@ function Tasks() {
           <input
             type="text"
             className="form-control"
-            placeholder="Buscar tarefas por título..."
+            placeholder="Search tasks by title..."
             value={termoBusca}
             onChange={handleSearch}
           />
@@ -105,42 +105,42 @@ function Tasks() {
         </div>
         {termoBusca && (
           <div className="text-muted mt-2 small">
-            Mostrando {tarefasFiltradas.length} resultado(s) para "{termoBusca}"
+            Showing {tasksFiltradas.length} result(s) for "{termoBusca}"
           </div>
         )}
       </div>
 
       <div className="tasks-list">
-        {tarefasAtuais.length === 0 ? (
+        {tasksAtuais.length === 0 ? (
           <div className="text-center py-5 text-muted">
-            <p>{termoBusca ? 'Nenhuma tarefa encontrada.' : 'No tasks available'}</p>
+            <p>{termoBusca ? 'No tasks found.' : 'No tasks available'}</p>
             {!termoBusca && <small>New tasks will appear every minute</small>}
           </div>
         ) : (
-          tarefasAtuais.map(task => <TaskItem key={task.id} task={task} />)
+          tasksAtuais.map(task => <TaskItem key={task.id} task={task} />)
         )}
       </div>
 
       {totalPaginas > 1 && (
         <div className="d-flex justify-content-center align-items-center gap-3 mt-4">
           <button
-            className="btn btn-outline-primary"
+            className="pagination-btn"
             onClick={paginaAnterior}
             disabled={paginaAtual === 1}
           >
-            ← Anterior
+            ← Previous
           </button>
           
-          <span className="text-muted">
-            Página {paginaAtual} de {totalPaginas}
+          <span className="pagination-info">
+            Page {paginaAtual} of {totalPaginas}
           </span>
           
           <button
-            className="btn btn-outline-primary"
+            className="pagination-btn"
             onClick={proximaPagina}
             disabled={paginaAtual === totalPaginas}
           >
-            Próxima →
+            Next →
           </button>
         </div>
       )}

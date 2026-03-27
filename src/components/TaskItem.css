@@ -1,14 +1,64 @@
 .custom-task-item {
-  background: #f8f9fa;
-  border-left: 4px solid #667eea;
-  padding: 1.25rem;
-  border-radius: 8px;
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  background: #c0c0c0;
+  border: 1px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  padding: 12px;
+  margin-bottom: 8px;
+  font-family: monospace;
 }
 
 .custom-task-item:hover {
-  transform: translateX(4px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-  background: white;
+  background: #d4d0c8;
+  cursor: pointer;
+}
+
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.task-title {
+  color: #000000;
+  font-size: 14px;
+  font-weight: normal;
+  margin: 0;
+  flex: 1;
+}
+
+.task-status {
+  min-width: 95px;
+  width: 95px;
+  text-align: center;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 4px 8px;
+  font-size: 12px;
+  font-weight: normal;
+  white-space: nowrap;
+}
+
+.status-completed {
+  background: #28a745;
+  color: white;
+}
+
+.status-pending {
+  background: #ffc107;
+  color: #000000;
+}
+
+.task-description {
+  color: #000000;
+  margin: 8px 0;
+  font-size: 12px;
+}
+
+.task-meta {
+  font-size: 10px;
+  color: #404040;
 }

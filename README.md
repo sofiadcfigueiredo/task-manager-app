@@ -1,34 +1,35 @@
 # 🗂️ Task Manager App
 
-Uma aplicação de gerenciamento de tarefas construída com **React**, que consome uma API REST para listar tarefas com status (Pending/Completed).
+A task management application built with **React** featuring a nostalgic **Windows 95 retro theme**. It consumes a REST API to list tasks with status (Pending/Completed).
 
 ![React](https://img.shields.io/badge/React-18-blue)
 ![React Router](https://img.shields.io/badge/React_Router-6-blueviolet)
-![Status](https://img.shields.io/badge/status-complete-brightgreen)
+![Windows 95](https://img.shields.io/badge/Theme-Windows95-green)
 
 ---
 
-## ✨ Funcionalidades
+## ✨ Features
 
-- ✅ **Página Home** com mensagem de boas-vindas
-- ✅ **Página Tasks** que exibe todas as tarefas da API
-- ✅ **Atualização automática** ao abrir a página de tarefas
-- ✅ **Status visual** (Pending / Completed) para cada tarefa
-- ✅ **Design responsivo** com gradiente e cards
-- ✅ **Navegação SPA** com React Router
-- ✅ **Paginação no front-end** (20 tarefas por página)
-- ✅ **Busca em tempo real** por título de tarefa
+- ✅ **Windows 95 Retro Theme** - Classic 3D borders, teal background, monospace fonts
+- ✅ **Responsive design** - Works on desktop and mobile
+- ✅ **Home Page** with welcome message
+- ✅ **Tasks Page** displaying all tasks from the API
+- ✅ **Auto-refresh** when opening the Tasks page
+- ✅ **Visual status** (Green for Completed, Yellow for Pending)
+- ✅ **SPA Navigation** with React Router
+- ✅ **Front-end pagination** (20 tasks per page)
+- ✅ **Real-time search** by task title
 
 ---
 
-## 🚀 Como executar o projeto
+## 🚀 How to run the project
 
-### Pré-requisitos
+### Prerequisites
 
 - Node.js 18+
 - NPM 9+
 
-### 1. Clone a API
+### 1. Clone the API
 
 ```bash
 git clone https://github.com/MarceloFonseca/tasks-api/
@@ -37,9 +38,9 @@ npm install
 PORT=3008 NEW_TASK_PERIOD=60000 npm start
 ```
 
-A API estará disponível em: `http://localhost:3008/api/tasks`
+The API will be available at: http://localhost:3008/api/tasks
 
-### 2. Clone e execute o app
+### 2. Clone and run the app
 
 ```bash
 git clone https://github.com/sofiadcfigueiredo/task-manager-app.git
@@ -48,34 +49,34 @@ npm install
 npm start
 ```
 
-O app estará disponível em: `http://localhost:3000`
+The app will be available at: http://localhost:3000
 
 ---
 
-## 📄 Paginação
+## 📄 Pagination
 
-O aplicativo implementa **paginação no front-end** para lidar com um grande volume de tarefas.
+The application implements **front-end pagination** to handle large volumes of tasks.
 
-- **20 tarefas por página**
-- Navegação com botões "Anterior" e "Próximo"
-- Exibe total de tarefas e página atual
+- **20 tasks per page**
+- Navigation with "Previous" and "Next" buttons
+- Displays total tasks and current page
 
-> **Para testar a paginação imediatamente** (sem aguardar 20 tarefas), altere a constante `tarefasPorPagina` no arquivo `src/components/Tasks.js` para um valor menor, como `2`.
-
----
-
-## 🔍 Busca
-
-O aplicativo permite buscar tarefas por título em tempo real.
-
-- **Filtro instantâneo** enquanto digita
-- **Contador de resultados**
-- **Botão "Limpar"** para resetar a busca
-- **Integração com paginação**
+> **To test pagination immediately** (without waiting for 20 tasks), change the `tasksPerPage` constant in `src/components/Tasks.js` to a smaller value, like `2`.
 
 ---
 
-## 🗂️ Estrutura do projeto
+## 🔍 Search
+
+The app allows real-time task search by title.
+
+- **Instant filtering** as you type
+- **Results counter**
+- **Clear button** to reset the search
+- **Pagination integration** - search results are automatically paginated
+
+---
+
+## 🗂️ Project Structure
 
 ```
 task-manager-app/
@@ -99,7 +100,7 @@ task-manager-app/
 
 ---
 
-## 🛠️ Tecnologias
+## 🛠️ Technologies
 
 - React 18
 - React Router DOM
@@ -110,13 +111,24 @@ task-manager-app/
 
 ---
 
-## 🧪 Testes
+## 🧪 Tests
 
-O projeto inclui 16 testes unitários para garantir o funcionamento correto dos componentes e serviços.
+The project includes 16 unit tests to ensure components and services work correctly.
 
 ```bash
 npm test
 ```
+
+---
+
+##  🎨 Theme
+The application features a complete **Windows 95 aesthetic**:
+
+**Background:** Classic teal (#008080)
+**Borders:** 3D raised/sunken effects
+**Font:** Monospace (Courier New)
+**Window Controls:** Minimize, Maximize, Close buttons
+**Status Bar:**Classic "Ready" indicator
 
 ---
 

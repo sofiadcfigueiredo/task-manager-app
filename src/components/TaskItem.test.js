@@ -25,7 +25,7 @@ describe('Componente TaskItem', () => {
     render(<TaskItem task={mockTask} />);
     const status = screen.getByText(/Pending/i);
     expect(status).toBeInTheDocument();
-    expect(status).toHaveClass('bg-warning');
+    expect(status).toHaveClass('status-pending');
   });
 
   test('deve mostrar status "Completed" quando completed for true', () => {
@@ -33,7 +33,7 @@ describe('Componente TaskItem', () => {
     render(<TaskItem task={completedTask} />);
     const status = screen.getByText(/Completed/i);
     expect(status).toBeInTheDocument();
-    expect(status).toHaveClass('bg-success');
+    expect(status).toHaveClass('status-completed');
   });
 
   test('deve renderizar a descrição quando existir', () => {

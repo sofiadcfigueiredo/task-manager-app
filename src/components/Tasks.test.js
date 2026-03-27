@@ -28,7 +28,7 @@ describe('Componente Tasks', () => {
       expect(screen.getByText('My Tasks')).toBeInTheDocument();
       expect(screen.getByText('Task 1')).toBeInTheDocument();
       expect(screen.getByText('Task 2')).toBeInTheDocument();
-      expect(screen.getByText('Total tasks: 2')).toBeInTheDocument();
+      expect(screen.getByText(/Total: 2 tasks/)).toBeInTheDocument();
     });
   });
 
