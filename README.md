@@ -132,6 +132,19 @@ The application features a complete **Windows 95 aesthetic**:
 
 ---
 
+## 📸 Screenshots
+
+### Home Page
+![Home Page](src/images/home.png)
+
+### Tasks Page (Main branch - without CRUD)
+![Tasks Page Main](src/images/tasks-main.png)
+
+### Tasks Page (CRUD branch - with Edit/Delete)
+![Tasks Page CRUD](src/images/tasks-crud.png)
+
+---
+
 ## 👩‍💻 Author
 
 **Sofia Figueiredo**  
