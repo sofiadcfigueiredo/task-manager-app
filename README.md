@@ -132,7 +132,7 @@ The application features a complete **Windows 95 aesthetic**:
 
 ---
 
-## 👩‍💻 Autora
+## 👩‍💻 Author
 
 **Sofia Figueiredo**  
 [GitHub](https://github.com/sofiadcfigueiredo)
