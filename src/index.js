@@ -5,7 +5,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById('root'));// Renderiza o componente App dentro do elemento com id 'root'
 root.render(
   <React.StrictMode>
     <App />

@@ -4,7 +4,7 @@ import TaskItem from './TaskItem';
 import './Tasks.css';
 
 function Tasks() {
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState([]); // Estado para armazenar as tarefas
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -18,16 +18,16 @@ function Tasks() {
   const loadTasks = async () => {
     try {
       setLoading(true);
-      const savedTasks = localStorage.getItem('tasks');
-      
-      if (savedTasks && JSON.parse(savedTasks).length > 0) {
-        setTasks(JSON.parse(savedTasks));
+      const savedTasks = localStorage.getItem('tasks'); // Tenta aceder a tarefas guardadas no localStorage
+
+      if (savedTasks && JSON.parse(savedTasks).length > 0) { // parse - converte string para objecto
+        setTasks(JSON.parse(savedTasks)); // Se existirem tarefas guardadas, carrega as tarefas do localStorage
       } else {
-        const data = await TaskService.getTasks();
+        const data = await TaskService.getTasks(); // Caso contrário, carrega as tarefas da API
         setTasks(data);
-        localStorage.setItem('tasks', JSON.stringify(data));
+        localStorage.setItem('tasks', JSON.stringify(data)); //stringify - converte objecto para string
       }
-      setError(null);
+      setError(null); // Limpa qualquer erro anterior
     } catch (err) {
       setError('Failed to load tasks. Please make sure the API is running.');
     } finally {
@@ -36,29 +36,29 @@ function Tasks() {
   };
 
   useEffect(() => {
-    loadTasks();
+    loadTasks(); // Carrega as tarefas quando o componente é montado
   }, []);
 
   useEffect(() => {
     if (tasks.length > 0) {
       localStorage.setItem('tasks', JSON.stringify(tasks));
     }
-  }, [tasks]);
+  }, [tasks]); // Sempre que as tarefas forem atualizadas, salva as tarefas no localStorage
 
   const addTask = () => {
-    if (!newTaskTitle.trim()) return;
+    if (!newTaskTitle.trim()) return; // Evita adicionar tarefas sem título
     
     const newTask = {
-      id: Date.now(),
+      id: Date.now(), // ID único (timestamp)
       title: newTaskTitle,
       text: newTaskTitle,
       description: newTaskDesc,
       completed: false
     };
-    
-    setTasks([newTask, ...tasks]);
+
+    setTasks([newTask, ...tasks]); // Adiciona a nova tarefa ao início da lista
     setNewTaskTitle('');
-    setNewTaskDesc('');
+    setNewTaskDesc(''); 
   };
 
   const updateTask = () => {
@@ -83,20 +83,20 @@ function Tasks() {
     }
   };
 
-  const toggleComplete = (id) => {
+  const toggleComplete = (id) => { // Alterna o estado de conclusão da tarefa
     setTasks(tasks.map(task => 
       task.id === id ? { ...task, completed: !task.completed } : task
     ));
   };
 
-  const openEditModal = (task) => {
+  const openEditModal = (task) => { // Abre o modal de edição
     setEditingTask(task);
     setNewTaskTitle(task.title || task.text);
     setNewTaskDesc(task.description || '');
     setShowModal(true);
   };
 
-  const filteredTasks = tasks.filter(task => {
+  const filteredTasks = tasks.filter(task => { // Filtra as tarefas com base no termo de pesquisa
     const title = (task.title || task.text || '').toLowerCase();
     return title.includes(searchTerm.toLowerCase());
   });
@@ -104,7 +104,7 @@ function Tasks() {
   const totalPages = Math.ceil(filteredTasks.length / tasksPerPage);
   const start = (currentPage - 1) * tasksPerPage;
   const end = start + tasksPerPage;
-  const currentTasks = filteredTasks.slice(start, end);
+  const currentTasks = filteredTasks.slice(start, end); // Mostra apenas as tarefas da página atual
 
   const nextPage = () => {
     if (currentPage < totalPages) {
@@ -118,12 +118,13 @@ function Tasks() {
     }
   };
 
-  const handleSearch = (event) => {
+  const handleSearch = (event) => { // Atualiza o termo de pesquisa e reseta para a primeira página
     setSearchTerm(event.target.value);
     setCurrentPage(1);
   };
 
-  if (loading) return (
+  // Renderização condicional para estados de carregamento e erro
+  if (loading) return ( 
     <div className="d-flex justify-content-center align-items-center py-5">
       <div className="text-center">
         <div className="spinner-border text-primary mb-3" role="status">
@@ -143,7 +144,8 @@ function Tasks() {
     </div>
   );
 
-  return (
+  // Renderiza a lista de tarefas, o formulário de adição, a barra de pesquisa e a paginação
+  return ( 
     <div>
       <div className="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
         <h2 className="mb-0">My Tasks</h2>

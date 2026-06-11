@@ -1,7 +1,7 @@
 import React from 'react';
 import './TaskItem.css';
 
-function TaskItem({ task, onEdit, onDelete, onToggleComplete }) {
+function TaskItem({ task, onEdit, onDelete, onToggleComplete }) { // Componente que representa um item de tarefa individual
   const getStatusClass = (completed) => {
     return completed ? 'status-completed' : 'status-pending';
   };
@@ -17,7 +17,7 @@ function TaskItem({ task, onEdit, onDelete, onToggleComplete }) {
         <div className="task-actions">
           <button
             className="edit-btn"
-            onClick={() => onEdit(task)}
+            onClick={() => onEdit(task)} 
           >
             ✏️ Edit
           </button>
@@ -35,9 +35,10 @@ function TaskItem({ task, onEdit, onDelete, onToggleComplete }) {
               ✓ Mark Complete
             </button>
           )}
-          <span className={`task-status ${getStatusClass(task.completed)}`}>
+          {/* Exibe o status da tarefa (completo ou pendente) com uma classe CSS dinâmica */}
+          <span className={`task-status ${getStatusClass(task.completed)}`}> 
             {getStatusText(task.completed)}
-          </span>
+          </span> 
         </div>
       </div>
       {task.description && (

@@ -1,12 +1,12 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'; 
 import Home from './components/Home';
 import Tasks from './components/Tasks';
 import './App.css';
 
 function App() {
   return (
-    <Router>
+    <Router> 
       <div className="app">
         <div className="header">
           <div className="window-controls">
@@ -31,8 +31,8 @@ function App() {
           </nav>
 
           <main className="main-content">
-            <Routes>
-              <Route path="/" element={<Home />} />
+            <Routes> 
+              <Route path="/" element={<Home />} /> 
               <Route path="/tasks" element={<Tasks />} />
             </Routes>
           </main>
