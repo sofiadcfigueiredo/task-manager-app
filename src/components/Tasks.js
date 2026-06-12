@@ -220,7 +220,7 @@ function Tasks() {
             <TaskItem 
               key={task.id} 
               task={task} 
-              onEdit={openEditModal}
+              onEdit={openEditModal} // Passa a função de edição para o componente TaskItem
               onDelete={deleteTask}
               onToggleComplete={toggleComplete}
             />
